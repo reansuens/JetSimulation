@@ -23,7 +23,7 @@ function compressor_exit_flow(fs_in::FlowState{T}, PR::T, η_c::T) where T<:Abst
     return fs_out
 end
 
-
+#PR = Pressure Ratio
 function polytropic_temperature(T_in::T, PR::T, γ::T, η_p::T) where T<:AbstractFloat
     return T_in * PR^((γ - 1)/(γ * η_p))
 end
