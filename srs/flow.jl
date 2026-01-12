@@ -30,35 +30,54 @@ struct FlowState{T<:AbstractFloat}
 end
 
 function FlowState(τ::T, P::T, V::T, A::T, gas::GasType) where {T<:AbstractFloat}
-    properties = GAS_PROPERTIES[gas]
-    Density = P / (properties.R * τ)
-    a = sqrt(properties.γ * properties.R * τ)
+    props = GAS_PROPERTIES[gas]
+
+    R  = T(props.R)
+    γ  = T(props.γ)
+    Cp = T(props.Cp)
+
+    Density = P / (R * τ)
+    a = sqrt(γ * R * τ)
     Mach = V / a
     m_dot = Density * V * A
-    τ_o = τ * (1 + (properties.γ - 1)/2 * Mach^2)
-    P_o = P * (1 + (properties.γ - 1)/2 * Mach^2)^(properties.γ/(properties.γ-1))
+    τ_o = τ * (1 + (γ - 1)/2 * Mach^2)
+    P_o = P * (1 + (γ - 1)/2 * Mach^2)^(γ/(γ-1))
 
-    fs = FlowState{T}(
+    return FlowState{T}(
         τ, P, V, A, gas,
-        Density, properties.γ, properties.R, properties.Cp,
+        Density, γ, R, Cp,
         Mach, m_dot, τ_o, P_o
     )
-    return fs
 end
 
 # Helper functions
 Mass_Flow_Rate(fs::FlowState) = fs.m_dot
 
-function Mach(fs::FlowState)
+function Helper_Mach(fs::FlowState)
     return fs.Mach
 end
 
-function Stagnation(fs::FlowState)
+function Helper_Stagnation(fs::FlowState)
     return (fs.τ_o, fs.P_o)
 end
 
 function Entropy(fs::FlowState, P_ref::T, τ_ref::T) where T<:AbstractFloat
     s = fs.Cp * log(fs.Temperature / τ_ref) - fs.R  * log(fs.Pressure / P_ref)
     return s
+end
+
+
+function Entropy_Generation(fs_in::FlowState, fs_out::FlowState)
+    # Irreversibility quantification
+    Δs = Entropy(fs_out, fs_in.Pressure, fs_in.Temperature) - 
+         Entropy(fs_in, fs_in.Pressure, fs_in.Temperature)
+    
+    return Δs  # > 0 for irreversible process
+end
+
+function is_choked(fs::FlowState{T}, A_throat::T, m_dot::T) where T<:AbstractFloat
+    m_dot_max = (fs.P_o * A_throat / sqrt(fs.τ_o)) * sqrt(fs.γ/fs.R) *
+                (2 / (fs.γ + 1))^((fs.γ + 1) / (2*(fs.γ - 1)))
+    return m_dot ≥ 0.99 * m_dot_max
 end
 
