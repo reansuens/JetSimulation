@@ -197,7 +197,6 @@ function nozzle(fs::FlowState, P_amb::Float64, A_e::Float64)
     FlowState(Tt, Pt, Ve, A_e_adj, γ, cp, mdot_e)
 end
 
-# ---------- Entropy for T-s diagram ----------
 function entropy(T::Real, P::Real; Tref = T_AMBIENT, Pref = P_AMBIENT)
     CP * log(T / Tref) - R * log(P / Pref)
 end
