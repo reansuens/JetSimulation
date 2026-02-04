@@ -1,7 +1,6 @@
 using GLMakie
 include("src/Jet.jl")
 using .Jet
-
 const T_MAX_TURBINE = 1600.0
 const LHV_FUEL      = 43e6
 const η_COMP        = 0.85
