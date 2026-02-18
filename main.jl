@@ -169,7 +169,6 @@ function update_plots!(res)
     autolimits!(ax4)
 end
 
-
 on(cycle_obs) do res
     update_plots!(res)
 end
