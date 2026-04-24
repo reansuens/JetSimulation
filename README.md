@@ -38,12 +38,5 @@ This simulation uses mathematical models based on the Brayton cycle and various 
 - **Specific Fuel Consumption (SFC):** Measure of the fuel efficiency.
 - **Thermal Efficiency (%):** Efficiency of converting fuel energy into thrust.
 
-## Comparison Table
-| Engine Type   | Thrust (N) | SFC (kg/kN·h) | Thermal Efficiency (%) |
-|---------------|------------|----------------|-----------------------|
-| Turbojet      | 1000       | 0.02           | 30                    |
-| Turbofan      | 2000       | 0.015          | 35                    |
-| Turboprop     | 1500       | 0.025          | 28                    |
-
 ---  
 This simulation is continually being improved, and contributions are welcome! Please refer to the issues page for any questions or feature requests.
