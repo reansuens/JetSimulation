@@ -1,5 +1,5 @@
 using GLMakie
-include("src/Jet.jl")
+include("srs/Jet.jl")
 using .Jet
 
 const GAMMA = Jet.GAMMA
