@@ -10,7 +10,7 @@ const T_AMBIENT = 288.15
 const g0 = 9.80665
 const R  = 287.05
 const GAMMA = 1.4
-const CP = 1005
+const CP = 1005.0
 const AIR = (gamma = GAMMA, cp = CP)
 
 # ISA model: valid from sea level to 32 km.
