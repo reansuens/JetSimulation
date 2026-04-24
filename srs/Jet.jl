@@ -117,7 +117,7 @@ function inlet_state_with_shock(Tamb, Pamb, M0, A0, mdot; shock_on::Bool = true)
     fs_free = inlet_state(Tamb, Pamb, M0, A0, mdot)
     if shock_on && M0 > 1.0
         sh = normal_shock(M0, GAMMA)
-        # Normal shock is adiabatic, so total temperature is unchanged; total pressure drops.
+        # Normal shock is adiabatic, so total temperature is unchanged and total pressure drops.
         fs_post = flow_from_mach(fs_free.Tt, fs_free.Pt*sh.pt_ratio, sh.M2, A0, mdot, GAMMA, CP)
         return fs_free, fs_post, sh
     end
