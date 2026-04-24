@@ -18,11 +18,10 @@ cd JetSimulation
 ```
 
 ## Usage
-After installation, you can run the simulation using the Julia command line:
+After installation, you can run the simulation using the Julia command line (enter Julia by simply typing ```julia``` in your terminal emulator:
 
 ```julia
-using JetSimulation
-simulate_engine()
+include("main.jl)
 ```
 
 ## Technical Details
